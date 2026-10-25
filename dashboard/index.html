@@ -1,0 +1,319 @@
+<title>Clinic Lead Engine</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: summary strip, then a two-pane workbench (map + filterable register | practice dossier). */
+:root {
+  --bg: #f3f5f2;
+  --surface: #ffffff;
+  --ink: #17221f;
+  --muted: #5b6863;
+  --line: #d9dfdb;
+  --accent: #1d6b62;       /* eucalypt */
+  --accent-soft: #e0eeea;
+  --tier-a: #b5651d;       /* ochre: best leads */
+  --tier-b: #3f7fb0;
+  --tier-c: #8a948f;
+  --dot: #9fb1aa;
+  --land: #e6ebe7;
+  --display: "Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111715; --surface: #18201d; --ink: #e5ece8; --muted: #93a19b; --line: #2b3632;
+    --accent: #5cc0b1; --accent-soft: #1c3330; --tier-a: #e39a52; --tier-b: #74aee0; --tier-c: #6f7a75;
+    --dot: #4c5c56; --land: #1d2623; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111715; --surface: #18201d; --ink: #e5ece8; --muted: #93a19b; --line: #2b3632;
+  --accent: #5cc0b1; --accent-soft: #1c3330; --tier-a: #e39a52; --tier-b: #74aee0; --tier-c: #6f7a75;
+  --dot: #4c5c56; --land: #1d2623; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 14px/1.5 var(--body); }
+.wrap { max-width: 1320px; margin: 0 auto; padding-block: 28px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 22px; }
+header { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 12px 24px; }
+h1 { font: 700 clamp(26px, 4vw, 38px)/1.05 var(--display); letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+.lede { color: var(--muted); max-width: 64ch; margin: 6px 0 0; }
+.src { font: 12px var(--mono); color: var(--muted); }
+.src a { color: inherit; }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px;
+  background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.stat { background: var(--surface); padding: 14px 16px; display: grid; gap: 2px; }
+.stat b { font: 600 24px/1.1 var(--display); font-variant-numeric: tabular-nums; }
+.stat span { font-size: 12px; color: var(--muted); }
+.bar { height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; margin-top: 6px; }
+.bar i { display: block; height: 100%; background: var(--accent); }
+
+.bench { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 960px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+.pane { display: grid; gap: 14px; min-width: 0; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters input, .filters select { font: inherit; color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 7px; padding: 7px 10px; min-width: 0; }
+.filters input { flex: 1 1 200px; }
+.filters select { flex: 0 1 auto; }
+input:focus-visible, select:focus-visible, button:focus-visible, tr:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+.mapbox { position: relative; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; }
+canvas { display: block; width: 100%; height: auto; aspect-ratio: 1.25; max-width: 100%; cursor: crosshair; }
+.legend { position: absolute; left: 12px; bottom: 10px; display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; background: var(--c); vertical-align: 0; }
+
+.tablebox { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; font: 500 11px var(--body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted);
+  padding: 9px 12px; border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--surface); white-space: nowrap; }
+td { padding: 8px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: var(--accent-soft); }
+tbody tr[aria-selected="true"] { background: var(--accent-soft); box-shadow: inset 3px 0 var(--accent); }
+td.num { font: 12px var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.nm { font-weight: 500; }
+.sub { color: var(--muted); font-size: 12px; }
+.dots { display: inline-flex; gap: 3px; }
+.dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
+.dots i.on { background: var(--accent); }
+.tier { display: inline-block; min-width: 26px; text-align: center; font: 600 11px var(--mono); padding: 2px 6px; border-radius: 4px; color: #fff; }
+.tier.A { background: var(--tier-a); } .tier.B { background: var(--tier-b); } .tier.C { background: var(--tier-c); }
+.tier.none { background: transparent; color: var(--muted); border: 1px dashed var(--line); }
+.more { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; font-size: 12px; color: var(--muted); }
+button { font: 500 13px var(--body); color: var(--accent); background: transparent; border: 1px solid var(--line); border-radius: 7px; padding: 6px 11px; cursor: pointer; }
+button:hover { border-color: var(--accent); }
+
+.dossier { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; gap: 18px; position: sticky; top: calc(14px + env(safe-area-inset-top, 0px)); min-width: 0; }
+@media (max-width: 960px) { .dossier { position: static; } }
+.dossier h2 { font: 700 22px/1.15 var(--display); margin: 0; text-wrap: balance; }
+.dossier h3 { font: 500 11px var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin: 0 0 6px; }
+.kv { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 5px 12px; margin: 0; }
+.kv dt { color: var(--muted); font-size: 12px; padding-top: 1px; }
+.kv dd { margin: 0; overflow-wrap: anywhere; display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.kv dd .missing { color: var(--muted); font-style: italic; }
+.copy { font-size: 11px; padding: 1px 7px; }
+.score { display: flex; align-items: center; gap: 14px; }
+.ring { --p: 0; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; flex: none;
+  background: conic-gradient(var(--rc) calc(var(--p) * 1%), var(--line) 0); }
+.ring b { width: 46px; height: 46px; border-radius: 50%; background: var(--surface); display: grid; place-items: center; font: 600 17px var(--display); }
+ul.reasons { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 12px; padding: 2px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--ink); }
+.email { border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.email .subj { padding: 9px 12px; border-bottom: 1px solid var(--line); font-weight: 600; display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+.email pre { margin: 0; padding: 12px; white-space: pre-wrap; font: 13px/1.6 var(--body); }
+.note { font-size: 12px; color: var(--muted); border-left: 2px solid var(--line); padding-left: 10px; }
+.empty { color: var(--muted); }
+a { color: var(--accent); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Clinic Lead Engine</h1>
+      <p class="lede">Every publicly listed medical practice in Australia, cleaned and de-duplicated, then enriched by AI (Groq) from each clinic's own website and scored as a lead for GP recruitment and practice-technology services.</p>
+    </div>
+    <div class="src">Data: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a> (ODbL) · clinic websites<br><span id="built"></span></div>
+  </header>
+
+  <section class="stats" id="stats" aria-label="Dataset summary"></section>
+
+  <div class="bench">
+    <div class="pane">
+      <div class="filters" role="search">
+        <input id="q" type="search" placeholder="Search practice, suburb or postcode" aria-label="Search">
+        <select id="f-state" aria-label="State"><option value="">All states</option></select>
+        <select id="f-cat" aria-label="Category"><option value="">All types</option></select>
+        <select id="f-remote" aria-label="Remoteness"><option value="">Any location</option></select>
+        <select id="f-tier" aria-label="Lead tier">
+          <option value="">Any lead tier</option><option value="A">Tier A</option><option value="B">Tier B</option>
+          <option value="C">Tier C</option><option value="scored">AI-scored only</option>
+        </select>
+        <select id="f-contact" aria-label="Contact details">
+          <option value="">Any contact data</option><option value="phone">Has phone</option>
+          <option value="email">Has email</option><option value="website">Has website</option>
+        </select>
+      </div>
+      <div class="mapbox">
+        <canvas id="map" width="900" height="720" aria-label="Map of practices; click a dot to open it"></canvas>
+        <div class="legend">
+          <span style="--c: var(--tier-a)">Tier A</span><span style="--c: var(--tier-b)">Tier B</span>
+          <span style="--c: var(--tier-c)">Tier C</span><span style="--c: var(--dot)">Not yet scored</span>
+        </div>
+      </div>
+      <div class="tablebox">
+        <table>
+          <thead><tr><th>Practice</th><th>State</th><th>Phone</th><th title="Phone · email · website · address · hours">Data</th><th>Lead</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <div class="more"><span id="count"></span>
+        <span style="display:flex; gap:8px"><button id="more" type="button">Show 100 more</button><button id="csv" type="button">Copy filtered rows as CSV</button></span>
+      </div>
+    </div>
+
+    <aside class="dossier" id="dossier" aria-live="polite"></aside>
+  </div>
+</div>
+
+<script>
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+let ALL = [], view = [], shown = 100, selected = null;
+
+async function copy(text, btn) {
+  try { await navigator.clipboard.writeText(text); flash(btn, "Copied"); }
+  catch { const r = document.createRange(); const n = btn.previousElementSibling || btn.parentElement; r.selectNodeContents(n);
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r); flash(btn, "Selected — press ⌘C"); }
+}
+function flash(btn, t) { const o = btn.textContent; btn.textContent = t; setTimeout(() => (btn.textContent = o), 1400); }
+
+function stats() {
+  const n = ALL.length, pct = (k) => Math.round((100 * ALL.filter((c) => c[k]).length) / n);
+  const gp = ALL.filter((c) => c.category === "General practice").length;
+  const enriched = ALL.filter((c) => c.ai_profile).length, scored = ALL.filter((c) => c.ai_lead);
+  const a = scored.filter((c) => c.ai_lead.tier === "A").length;
+  const tile = (b, s, p) => `<div class="stat"><b>${b}</b><span>${s}</span>${p != null ? `<div class="bar"><i style="width:${p}%"></i></div>` : ""}</div>`;
+  $("#stats").innerHTML = [
+    tile(n.toLocaleString(), "unique practices"), tile(gp.toLocaleString(), "general practices"),
+    tile(pct("phone") + "%", "with phone", pct("phone")), tile(pct("website") + "%", "with website", pct("website")),
+    tile(pct("email") + "%", "with email", pct("email")),
+    tile(enriched, "read by AI from their website"), tile(`${a}<small style="font-size:14px;color:var(--muted)"> / ${scored.length}</small>`, "Tier A leads / AI-scored"),
+  ].join("");
+}
+
+function fillSelect(id, key) {
+  [...new Set(ALL.map((c) => c[key]).filter(Boolean))].sort().forEach((v) => $(id).insertAdjacentHTML("beforeend", `<option>${esc(v)}</option>`));
+}
+
+function filter() {
+  const q = $("#q").value.trim().toLowerCase(), st = $("#f-state").value, cat = $("#f-cat").value,
+    rem = $("#f-remote").value, tier = $("#f-tier").value, ct = $("#f-contact").value;
+  view = ALL.filter((c) =>
+    (!q || `${c.name} ${c.suburb ?? ""} ${c.postcode ?? ""}`.toLowerCase().includes(q)) &&
+    (!st || c.state === st) && (!cat || c.category === cat) && (!rem || c.remoteness === rem) &&
+    (!ct || c[ct]) &&
+    (!tier || (tier === "scored" ? c.ai_lead : c.ai_lead?.tier === tier)));
+  view.sort((a, b) => (b.ai_lead?.fit_score ?? -1) - (a.ai_lead?.fit_score ?? -1) || b.completeness - a.completeness);
+  shown = 100; render(); draw();
+}
+
+function dataDots(c) {
+  return `<span class="dots" aria-label="${c.completeness}% complete">${["phone", "email", "website", "street", "opening_hours"]
+    .map((k) => `<i class="${c[k] ? "on" : ""}"></i>`).join("")}</span>`;
+}
+function tierBadge(c) { return c.ai_lead ? `<span class="tier ${c.ai_lead.tier}">${c.ai_lead.tier} ${c.ai_lead.fit_score}</span>` : `<span class="tier none">–</span>`; }
+
+function render() {
+  $("#rows").innerHTML = view.slice(0, shown).map((c) => `
+    <tr tabindex="0" data-id="${c.id}" aria-selected="${selected?.id === c.id}">
+      <td><div class="nm">${esc(c.name)}</div><div class="sub">${esc([c.suburb, c.postcode].filter(Boolean).join(" ") || c.remoteness)}</div></td>
+      <td>${c.state}</td><td class="num">${esc(c.phone ?? "")}</td><td>${dataDots(c)}</td><td>${tierBadge(c)}</td>
+    </tr>`).join("") || `<tr><td colspan="5" class="empty">No practices match these filters.</td></tr>`;
+  $("#count").textContent = `Showing ${Math.min(shown, view.length).toLocaleString()} of ${view.length.toLocaleString()} practices`;
+  $("#more").hidden = shown >= view.length;
+}
+
+function row(label, val, copyable) {
+  return `<dt>${label}</dt><dd>${val ? `<span>${val}</span>${copyable ? `<button class="copy" type="button" data-copy="${esc(copyable)}">Copy</button>` : ""}` : `<span class="missing">not published</span>`}</dd>`;
+}
+
+function dossier(c) {
+  selected = c;
+  document.querySelectorAll("#rows tr").forEach((tr) => tr.setAttribute("aria-selected", tr.dataset.id === c.id));
+  const p = c.ai_profile, l = c.ai_lead;
+  const addr = [c.street, c.suburb, c.state, c.postcode].filter(Boolean).join(", ");
+  const site = c.website ? `<a href="${esc(c.website)}" target="_blank" rel="noopener">${esc(c.website.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, ""))}</a>` : "";
+  let h = `<div><h2>${esc(c.name)}</h2><div class="sub">${esc(c.category)} · ${esc(c.remoteness)} · ${c.km_to_capital} km from ${esc(c.nearest_capital ?? "capital")}</div></div>
+    <div><h3>Contact</h3><dl class="kv">
+      ${row("Phone", esc(c.phone), c.phone)}${row("Email", esc(c.email), c.email)}${row("Website", site)}
+      ${row("Address", esc(addr))}${row("Hours", esc(c.opening_hours))}
+      ${p?.practice_manager ? row("Manager", esc(p.practice_manager)) : ""}
+    </dl></div>`;
+  if (l) {
+    h += `<div><h3>Lead assessment</h3><div class="score">
+        <div class="ring" style="--p:${l.fit_score}; --rc: var(--tier-${l.tier.toLowerCase()})"><b>${l.fit_score}</b></div>
+        <div><span class="tier ${l.tier}">Tier ${l.tier}</span> <span class="sub">· best channel: ${esc(l.best_contact_channel)}</span></div></div>
+        <ul class="reasons" style="margin-top:10px">${l.reasons.map((r) => `<li>${esc(r)}</li>`).join("")}</ul>
+        ${l.likely_needs.length ? `<div class="chips" style="margin-top:10px">${l.likely_needs.map((n) => `<span class="chip">${esc(n)}</span>`).join("")}</div>` : ""}
+        ${l.caution ? `<p class="note" style="margin:10px 0 0">${esc(l.caution)}</p>` : ""}</div>
+      <div><h3>Draft outreach email</h3><div class="email">
+        <div class="subj"><span>${esc(l.email_subject)}</span><button class="copy" type="button" data-copy="${esc(`Subject: ${l.email_subject}\n\n${l.email_body}`)}">Copy email</button></div>
+        <pre>${esc(l.email_body)}</pre></div></div>`;
+  }
+  if (p) {
+    h += `<div><h3>From their website (AI)</h3><p style="margin:0 0 8px">${esc(p.summary)}</p><dl class="kv">
+      ${row("Billing", esc(p.billing))}${row("Booking", esc(p.online_booking_platform))}
+      ${row("Doctors", p.num_doctors_listed != null ? String(p.num_doctors_listed) + " listed" : "")}
+      ${row("Telehealth", p.telehealth == null ? "" : p.telehealth ? "Yes" : "No")}
+      ${row("Hiring", esc((p.hiring_signals || []).join("; ")))}${row("Languages", esc((p.languages || []).join(", ")))}
+    </dl>${p.services?.length ? `<div class="chips" style="margin-top:10px">${p.services.slice(0, 12).map((s) => `<span class="chip">${esc(s)}</span>`).join("")}</div>` : ""}</div>`;
+  }
+  if (!p && !l) h += `<p class="note">Not yet enriched by AI. Run <code>python src/enrich.py</code> and <code>python src/score.py</code> to add a website profile, lead score and outreach draft.</p>`;
+  $("#dossier").innerHTML = h;
+}
+
+// --- map: equirectangular projection of mainland Australia + Tasmania
+const B = { w: 112.5, e: 154.2, n: -9.8, s: -44.2 };
+let pts = [];
+function draw() {
+  const cv = $("#map"), ctx = cv.getContext("2d"), W = cv.width, H = cv.height, pad = 24;
+  const kx = (W - 2 * pad) / (B.e - B.w), ky = (H - 2 * pad) / (B.n - B.s), k = Math.min(kx, ky * 1.0);
+  const ox = pad + (W - 2 * pad - k * (B.e - B.w)) / 2, oy = pad;
+  const X = (lon) => ox + (lon - B.w) * k, Y = (lat) => oy + (B.n - lat) * k * 1.13;
+  ctx.clearRect(0, 0, W, H);
+  // faint graticule in 5° steps so the dots read as a map
+  ctx.strokeStyle = css("--line"); ctx.lineWidth = 1; ctx.fillStyle = css("--muted"); ctx.font = "11px " + css("--mono");
+  for (let lon = 115; lon <= 150; lon += 5) { ctx.beginPath(); ctx.moveTo(X(lon), Y(B.n)); ctx.lineTo(X(lon), Y(B.s)); ctx.stroke(); ctx.fillText(lon + "°E", X(lon) + 3, H - 8); }
+  for (let lat = -15; lat >= -40; lat -= 5) { ctx.beginPath(); ctx.moveTo(X(B.w), Y(lat)); ctx.lineTo(X(B.e), Y(lat)); ctx.stroke(); ctx.fillText(-lat + "°S", X(B.e) - 34, Y(lat) - 4); }
+  const ids = new Set(view.map((c) => c.id)), col = { A: css("--tier-a"), B: css("--tier-b"), C: css("--tier-c") };
+  pts = [];
+  const order = [...ALL].sort((a, b) => (a.ai_lead ? 1 : 0) - (b.ai_lead ? 1 : 0));
+  for (const c of order) {
+    const on = ids.has(c.id), x = X(c.lon), y = Y(c.lat);
+    ctx.globalAlpha = on ? 0.9 : 0.12;
+    ctx.fillStyle = c.ai_lead ? col[c.ai_lead.tier] : css("--dot");
+    ctx.beginPath(); ctx.arc(x, y, c.ai_lead ? 3.6 : 2.2, 0, 7); ctx.fill();
+    if (on) pts.push([x, y, c]);
+  }
+  ctx.globalAlpha = 1;
+  if (selected) { ctx.strokeStyle = css("--ink"); ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(X(selected.lon), Y(selected.lat), 8, 0, 7); ctx.stroke(); }
+}
+$("#map").addEventListener("click", (e) => {
+  const r = e.target.getBoundingClientRect(), sx = e.target.width / r.width;
+  const x = (e.clientX - r.left) * sx, y = (e.clientY - r.top) * sx;
+  let best = null, bd = 14 * sx;
+  for (const [px, py, c] of pts) { const d = Math.hypot(px - x, py - y); if (d < bd) { bd = d; best = c; } }
+  if (best) { dossier(best); draw(); }
+});
+
+$("#rows").addEventListener("click", (e) => { const tr = e.target.closest("tr[data-id]"); if (tr) { dossier(ALL.find((c) => c.id === tr.dataset.id)); draw(); } });
+$("#rows").addEventListener("keydown", (e) => { if (e.key === "Enter") e.target.closest("tr[data-id]")?.click(); });
+$("#dossier").addEventListener("click", (e) => { const b = e.target.closest("[data-copy]"); if (b) copy(b.dataset.copy, b); });
+$("#more").addEventListener("click", () => { shown += 100; render(); });
+$("#csv").addEventListener("click", (e) => {
+  const cols = ["name", "category", "street", "suburb", "state", "postcode", "phone", "email", "website", "remoteness"];
+  const q = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const lines = [[...cols, "lead_tier", "fit_score"].join(",")].concat(
+    view.map((c) => [...cols.map((k) => q(c[k])), q(c.ai_lead?.tier), q(c.ai_lead?.fit_score)].join(",")));
+  copy(lines.join("\n"), e.target);
+});
+["#q", "#f-state", "#f-cat", "#f-remote", "#f-tier", "#f-contact"].forEach((s) => $(s).addEventListener("input", filter));
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
+new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+fetch("clinics.json").then((r) => r.json()).then((data) => {
+  ALL = data;
+  fillSelect("#f-state", "state"); fillSelect("#f-cat", "category"); fillSelect("#f-remote", "remoteness");
+  stats(); filter();
+  dossier(view[0]); draw();
+}).catch(() => { $("#dossier").innerHTML = `<p class="note">Could not load clinics.json. Serve this folder over HTTP (for example <code>python -m http.server</code>) rather than opening the file directly.</p>`; });
+</script>

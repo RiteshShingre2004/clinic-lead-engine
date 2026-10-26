@@ -91198,8 +91198,8 @@
   "suburb": "Benowa",
   "state": "QLD",
   "postcode": "4217",
-  "phone": null,
-  "website": null,
+  "phone": "(07) 5597 6625",
+  "website": "https://www.goldcoasthealthcare.com/general-practice/ashmore-road-family-practice",
   "email": null,
   "opening_hours": null,
   "operator": null,
@@ -91214,10 +91214,59 @@
    "Healthdirect NHSD",
    "OpenStreetMap"
   ],
-  "completeness": 43,
+  "completeness": 71,
   "osm_ids": [
    "osm-way-682046923"
-  ]
+  ],
+  "ai_discovery": {
+   "official_website": "https://www.goldcoasthealthcare.com/general-practice/ashmore-road-family-practice",
+   "phone": "(07) 5597 6625",
+   "address_matched": true,
+   "possibly_closed": false,
+   "confidence": "high"
+  },
+  "ai_profile": {
+   "is_general_practice": false,
+   "practice_type": "Unknown",
+   "emails": [],
+   "phones": [],
+   "address": null,
+   "practice_manager": null,
+   "services": [],
+   "billing": "Unknown",
+   "telehealth": null,
+   "online_booking_platform": null,
+   "num_doctors_listed": null,
+   "hiring_signals": [],
+   "languages": [],
+   "summary": "The website is a health services directory, not a practice website.",
+   "evidence_quality": "low",
+   "pages_read": [
+    "https://www.goldcoasthealthcare.com/general-practice/ashmore-road-family-practice",
+    "https://www.goldcoasthealthcare.com/about-us/",
+    "https://www.goldcoasthealthcare.com/contact-us/",
+    "https://www.goldcoasthealthcare.com/after-hours-doctors/"
+   ]
+  },
+  "ai_lead": {
+   "fit_score": 60,
+   "tier": "B",
+   "reasons": [
+    "Located in Benowa and classified as outer metro/regional, suggesting potential GP staffing challenges.",
+    "Website is only a directory listing without its own site or online booking functionality.",
+    "Phone number is available but no direct email or practice manager name is listed."
+   ],
+   "likely_needs": [
+    "Dedicated practice website with online booking",
+    "Recruitment support for GP or nursing staff",
+    "Automation of routine admin tasks"
+   ],
+   "best_contact_channel": "head office",
+   "caution": "Practice manager name and direct email are not listed; website profile provides low‑quality evidence.",
+   "email_subject": "Supporting Ashmore Road Family Practice's growth",
+   "email_body": "Hi Practice Manager,\n\nI noticed Ashmore Road Family Practice is proudly serving the Benowa community and is featured on the Gold Coast Healthcare directory. Many practices in the Gold Coast area are enhancing their online presence and streamlining staffing to better serve patients. I’d love to discuss how a customised website with integrated online booking and a targeted recruitment service could free up your team’s time and help attract clinicians. Would you be open to a brief 15‑minute call next week to explore ideas?\n\nIf this isn't relevant, reply 'no thanks' and we won't contact you again.",
+   "style_issues": []
+  }
  },
  {
   "id": "nhsd-1b8b1966-8d0e-812f-610f-5611eff2f7ec",
@@ -91229,7 +91278,7 @@
   "state": "QLD",
   "postcode": "4217",
   "phone": "(07) 5539 1997",
-  "website": null,
+  "website": "https://www.goldcoasthealthcare.com/general-practice/benowa-family-medical-centre",
   "email": null,
   "opening_hours": "Mo-Th 08:00-17:00; Fr 08:00-13:30",
   "operator": null,
@@ -91244,10 +91293,58 @@
    "Healthdirect NHSD",
    "OpenStreetMap"
   ],
-  "completeness": 71,
+  "completeness": 86,
   "osm_ids": [
    "osm-node-7802645509"
-  ]
+  ],
+  "ai_discovery": {
+   "official_website": "https://www.goldcoasthealthcare.com/general-practice/benowa-family-medical-centre",
+   "phone": "(07) 5539 1997",
+   "address_matched": true,
+   "possibly_closed": false,
+   "confidence": "high"
+  },
+  "ai_profile": {
+   "is_general_practice": false,
+   "practice_type": "Unknown",
+   "emails": [],
+   "phones": [],
+   "address": null,
+   "practice_manager": null,
+   "services": [],
+   "billing": "Unknown",
+   "telehealth": null,
+   "online_booking_platform": null,
+   "num_doctors_listed": null,
+   "hiring_signals": [],
+   "languages": [],
+   "summary": "Benowa Family Medical Centre appears listed in a health directory rather than a dedicated practice website.",
+   "evidence_quality": "low",
+   "pages_read": [
+    "https://www.goldcoasthealthcare.com/general-practice/benowa-family-medical-centre",
+    "https://www.goldcoasthealthcare.com/about-us/",
+    "https://www.goldcoasthealthcare.com/contact-us/",
+    "https://www.goldcoasthealthcare.com/after-hours-doctors/"
+   ]
+  },
+  "ai_lead": {
+   "fit_score": 60,
+   "tier": "B",
+   "reasons": [
+    "Located in Benowa and flagged as \"Outer metro / regional\", indicating potential GP staffing challenges.",
+    "Website is a sub‑page of goldcoasthealthcare.com, suggesting a limited dedicated digital presence for the practice.",
+    "Phone number (07) 5539 1997 is publicly listed, providing a direct contact method."
+   ],
+   "likely_needs": [
+    "Online booking integration",
+    "Modern dedicated website"
+   ],
+   "best_contact_channel": "phone",
+   "caution": "No practice manager name or email found; online booking platform and hiring signals are missing.",
+   "email_subject": "Benowa Medical Centre – 15‑min chat about online booking",
+   "email_body": "Hi Practice Manager,\n\nI came across Benowa Family Medical Centre’s listing on the Gold Coast Healthcare site and was impressed by the range of services you provide to the Benowa community. Many practices in the Gold Coast area are enhancing patient experience with dedicated websites and integrated online booking, which can reduce admin load and free up time for clinicians. Gokul Infocare specialises in building modern practice websites and seamless booking tools, and we also support GP and nurse recruitment when needed. Could we schedule a brief 15‑minute call to discuss how this could help your team?\n\nIf this isn’t relevant, reply 'no thanks' and we won’t contact you again.",
+   "style_issues": []
+  }
  },
  {
   "id": "nhsd-b9847090-3368-44c8-ba82-fdb3f936cea2",
@@ -91258,9 +91355,9 @@
   "suburb": "Benowa",
   "state": "QLD",
   "postcode": "4217",
-  "phone": null,
-  "website": null,
-  "email": null,
+  "phone": "(07) 5619 7000",
+  "website": "https://www.medicalsuperclinic.com.au/",
+  "email": "[email protected]",
   "opening_hours": null,
   "operator": null,
   "wheelchair": null,
@@ -91273,7 +91370,78 @@
   "sources": [
    "Healthdirect NHSD"
   ],
-  "completeness": 43
+  "completeness": 86,
+  "ai_discovery": {
+   "official_website": "https://www.medicalsuperclinic.com.au/",
+   "phone": "07 5619 7000",
+   "address_matched": true,
+   "possibly_closed": false,
+   "confidence": "high"
+  },
+  "ai_profile": {
+   "is_general_practice": true,
+   "practice_type": "Independent GP clinic",
+   "emails": [
+    "[email protected]"
+   ],
+   "phones": [
+    "(07) 5619 7000",
+    "(07) 5619 7028"
+   ],
+   "address": "192 Ashmore Road, Benowa, QLD 4217",
+   "practice_manager": null,
+   "services": [
+    "Antenatal Care",
+    "Aviation Medical",
+    "Child Health",
+    "Chronic and Complex Health",
+    "Ear Wax Removal with Micro-Suctioning",
+    "Electrocardiogram or ECG",
+    "Endometriosis & Pelvic Pain Clinic",
+    "Healthy Lives Check",
+    "Iron Infusions",
+    "Men’s Health",
+    "Mental Health",
+    "Onsite Pathology",
+    "Skin Checks & Minor Surgery",
+    "Vaccinations and Immunisations",
+    "Bowel Diagnostics & Therapy",
+    "Elysian Women’s Health"
+   ],
+   "billing": "Mixed billing",
+   "telehealth": null,
+   "online_booking_platform": null,
+   "num_doctors_listed": 16,
+   "hiring_signals": [],
+   "languages": [],
+   "summary": "Montier Health Benowa is an independent GP clinic offering a wide range of general and specialist services with mixed billing options.",
+   "evidence_quality": "high",
+   "pages_read": [
+    "https://www.medicalsuperclinic.com.au/",
+    "https://www.medicalsuperclinic.com.au/meet-your-team/",
+    "https://www.medicalsuperclinic.com.au/billing-details-doctors-in-benowa-bulk-bill-details/",
+    "https://www.medicalsuperclinic.com.au/careers/"
+   ]
+  },
+  "ai_lead": {
+   "fit_score": 80,
+   "tier": "A",
+   "reasons": [
+    "Located in Benowa with an outer metro/regional classification indicating potential GP shortage (remoteness field).",
+    "Website profile shows no online booking platform, suggesting a need for digital appointment solutions (online_booking_platform null).",
+    "No practice manager listed and no hiring signals, indicating possible staffing challenges (practice_manager null, hiring_signals empty)."
+   ],
+   "likely_needs": [
+    "Recruitment of GP or clinical staff",
+    "Implementation of online booking and website automation",
+    "Modernising digital presence"
+   ],
+   "best_contact_channel": "email",
+   "caution": null,
+   "email_subject": "Benowa practice – quick chat about staffing & digital tools",
+   "email_body": "Hi Practice Manager,\n\nI was impressed by Medical Super Clinic’s wide service offering in Benowa, especially the on‑site pathology and women’s health clinics. Many independent practices I work with find it challenging to attract additional GPs or nurses while also keeping up with digital patient‑booking tools. At Gokul Infocare we specialise in recruiting qualified clinical staff for regional clinics and can set up modern websites with integrated online booking and admin automation. Could we schedule a brief 15‑minute call next week to explore how we might support your team?\n\nIf this isn't relevant, reply 'no thanks' and we won't contact you again.",
+   "style_issues": []
+  }
  },
  {
   "id": "nhsd-9cd3aa01-ee58-85ae-97a4-8295ccd12d21",
@@ -91310,9 +91478,9 @@
   "suburb": "Benowa",
   "state": "QLD",
   "postcode": "4217",
-  "phone": null,
-  "website": null,
-  "email": null,
+  "phone": "(07) 5564 5013",
+  "website": "https://www.themedicalsanctuary.com.au/",
+  "email": "reception@themedicalsanctuary.com.au",
   "opening_hours": null,
   "operator": null,
   "wheelchair": null,
@@ -91325,7 +91493,76 @@
   "sources": [
    "Healthdirect NHSD"
   ],
-  "completeness": 43
+  "completeness": 86,
+  "ai_discovery": {
+   "official_website": "https://www.themedicalsanctuary.com.au/",
+   "phone": "07 5564 5013",
+   "address_matched": true,
+   "possibly_closed": false,
+   "confidence": "high"
+  },
+  "ai_profile": {
+   "is_general_practice": true,
+   "practice_type": "Independent GP clinic",
+   "emails": [
+    "reception@themedicalsanctuary.com.au"
+   ],
+   "phones": [
+    "(07) 5564 5013"
+   ],
+   "address": "150 Ashmore Road, Benowa QLD 4217",
+   "practice_manager": null,
+   "services": [
+    "Holistic Medicine",
+    "Naturopathy",
+    "Osteopathy",
+    "Holistic Massage",
+    "Colon Hydrotherapy",
+    "Acupuncture",
+    "Sunlighten Sauna",
+    "Weight Loss",
+    "Pregnancy Care",
+    "Candida & Pyrrole Disorder",
+    "Back and Neck Pain",
+    "Anti-Ageing Medicine",
+    "Bio-Identical Hormones"
+   ],
+   "billing": "Unknown",
+   "telehealth": null,
+   "online_booking_platform": null,
+   "num_doctors_listed": null,
+   "hiring_signals": [],
+   "languages": [
+    "English"
+   ],
+   "summary": "The Medical Sanctuary offers a range of holistic health services, including GP and integrative medicine, at 150 Ashmore Road, Benowa, QLD.",
+   "evidence_quality": "high",
+   "pages_read": [
+    "https://www.themedicalsanctuary.com.au/",
+    "https://www.themedicalsanctuary.com.au/about/",
+    "https://www.themedicalsanctuary.com.au/holistic-approach-to-natural-health/sunlighten-sauna-detoxification/infrared-verse-steam-saunas/",
+    "https://www.themedicalsanctuary.com.au/contact/"
+   ]
+  },
+  "ai_lead": {
+   "fit_score": 81,
+   "tier": "A",
+   "reasons": [
+    "Located in Benowa and classified as \"Outer metro / regional\", indicating potential staffing challenges.",
+    "Independent GP clinic with verified phone and email, enabling direct outreach.",
+    "No online booking platform listed, showing opportunity for digital upgrade."
+   ],
+   "likely_needs": [
+    "Recruitment of GP or clinical staff",
+    "Implementation of an online booking system",
+    "Modern website or digital automation"
+   ],
+   "best_contact_channel": "email",
+   "caution": "No practice manager name or hiring signals were found, limiting insight into current staffing needs.",
+   "email_subject": "Helping The Medical Sanctuary grow its team & digital tools",
+   "email_body": "Hi Practice Manager,\n\nI was impressed by The Medical Sanctuary’s extensive holistic health offerings, from naturopathy to pregnancy care, serving the Benowa community. As an independent GP clinic, you have the flexibility to grow your clinical team and enhance patient access through modern digital tools. At Gokul Infocare we specialise in sourcing qualified GPs, registrars and practice nurses for regional practices, and we can also build a customised website with online booking and workflow automation. Would you have 15 minutes next week for a brief call to discuss how we could support your practice’s growth?\n\nIf this isn't relevant, reply 'no thanks' and we won't contact you again.",
+   "style_issues": []
+  }
  },
  {
   "id": "nhsd-e1c587b7-43ae-d956-4bed-aa163744ec48",
@@ -93533,8 +93770,8 @@
   "suburb": "Broadbeach",
   "state": "QLD",
   "postcode": "4218",
-  "phone": null,
-  "website": null,
+  "phone": "(07) 5570 2363",
+  "website": "https://www.doctorsatpacificfair.com.au/",
   "email": null,
   "opening_hours": null,
   "operator": null,
@@ -93548,7 +93785,14 @@
   "sources": [
    "Healthdirect NHSD"
   ],
-  "completeness": 43
+  "completeness": 43,
+  "ai_discovery": {
+   "official_website": "https://www.doctorsatpacificfair.com.au/",
+   "phone": "07 5570 2363",
+   "address_matched": true,
+   "possibly_closed": false,
+   "confidence": "high"
+  }
  },
  {
   "id": "nhsd-5eeb273a-5128-bd3b-727f-fcdb2de29a60",
@@ -93615,8 +93859,8 @@
   "suburb": "Broadbeach Waters",
   "state": "QLD",
   "postcode": "4218",
-  "phone": null,
-  "website": null,
+  "phone": "(07) 5526 7400",
+  "website": "https://myhealth.net.au/pacific-fair/",
   "email": null,
   "opening_hours": null,
   "operator": null,
@@ -93630,7 +93874,73 @@
   "sources": [
    "Healthdirect NHSD"
   ],
-  "completeness": 43
+  "completeness": 71,
+  "ai_discovery": {
+   "official_website": "https://myhealth.net.au/pacific-fair/",
+   "phone": "+61 7 5526 7400",
+   "address_matched": true,
+   "possibly_closed": false,
+   "confidence": "high"
+  },
+  "ai_profile": {
+   "is_general_practice": true,
+   "practice_type": "Independent GP clinic",
+   "emails": [],
+   "phones": [
+    "(07) 5526 7400",
+    "(07) 5527 5799"
+   ],
+   "address": "Pacific Fair Shopping Centre Shop 1536/2 32 Hooker Boulevard, Broadbeach Waters, QLD 4218",
+   "practice_manager": null,
+   "services": [
+    "GP General Practice",
+    "Registered Nurse",
+    "Physiotherapy",
+    "Skin Cancer Checks",
+    "Podiatry",
+    "Dietitian",
+    "Paediatrics",
+    "Work Cover",
+    "Pathology",
+    "Immunisations",
+    "Health Assessments",
+    "Antenatal Care",
+    "Minor Surgery"
+   ],
+   "billing": "Mixed billing",
+   "telehealth": null,
+   "online_booking_platform": null,
+   "num_doctors_listed": 6,
+   "hiring_signals": [],
+   "languages": [],
+   "summary": "Myhealth Pacific Fair is an independent GP clinic in Broadbeach Waters offering mixed billing services, a range of medical and allied health services, and online booking, staffed by six named doctors.",
+   "evidence_quality": "high",
+   "pages_read": [
+    "https://myhealth.net.au/pacific-fair/",
+    "https://myhealth.net.au/about-us/",
+    "https://myhealth.net.au/careers/work-with-us/",
+    "https://myhealth.net.au/jobs/"
+   ]
+  },
+  "ai_lead": {
+   "fit_score": 80,
+   "tier": "A",
+   "reasons": [
+    "Located in Broadbeach Waters, listed as \"Outer metro / regional\" indicating potential GP shortage.",
+    "Website does not list an online booking platform, suggesting opportunity to improve digital patient access.",
+    "Practice is independent with six doctors and offers a wide range of services, making it a good fit for recruitment and technology solutions."
+   ],
+   "likely_needs": [
+    "Recruitment of GP or practice nurses",
+    "Modern website with online booking integration",
+    "Automation of admin work"
+   ],
+   "best_contact_channel": "phone",
+   "caution": null,
+   "email_subject": "Supporting Myhealth Pacific Fair’s growth",
+   "email_body": "Hi Practice Manager,\n\nI noticed Myhealth Pacific Fair offers a comprehensive mix of services—from GP care to physiotherapy and skin cancer checks—for the Broadbeach Waters community. It’s great to see such a broad health offering under one roof.\n\nWe work with independent clinics to streamline recruitment and boost their online presence, including modern websites and integrated booking tools. I’d love to discuss how a quick 15‑minute call could help you attract additional staff and simplify admin tasks. Our clients often see faster appointment bookings and reduced admin workload within weeks.\n\nIf this isn’t relevant, reply \"no thanks\" and we won’t contact you again.",
+   "style_issues": []
+  }
  },
  {
   "id": "nhsd-831d1eea-32fd-4cf0-9a5f-134c08775773",
@@ -94838,7 +95148,33 @@
   "sources": [
    "Healthdirect NHSD"
   ],
-  "completeness": 43
+  "completeness": 43,
+  "ai_discovery": {
+   "official_website": "https://vitalitymedicalcentre.com.au/",
+   "phone": "07 5689 3780",
+   "address_matched": false,
+   "possibly_closed": false,
+   "confidence": "low"
+  },
+  "ai_lead": {
+   "fit_score": 55,
+   "tier": "B",
+   "reasons": [
+    "Located in Bundall, classified as Outer metro / regional, indicating potential GP shortage.",
+    "No website or online booking listed, suggesting a digital gap.",
+    "No phone or email provided, limiting direct outreach."
+   ],
+   "likely_needs": [
+    "Recruitment of GPs or practice nurses",
+    "Modern website with online booking",
+    "Automation of routine admin tasks"
+   ],
+   "best_contact_channel": "email",
+   "caution": "Phone, email and website details are not listed in the directory.",
+   "email_subject": "Supporting Vitality Medical Centre’s growth",
+   "email_body": "Hi Practice Manager,\n\nI noticed Vitality Medical Centre is serving the Bundall community, and it’s great to see a local practice dedicated to primary care. Many practices in the area are looking to strengthen their teams and simplify admin work, especially where online booking isn’t yet set up. I’d love to share how we help clinics attract quality staff and launch modern, easy‑to‑manage websites.\n\nWould you be open to a brief 15‑minute call next week to explore this?\n\nIf this isn't relevant, reply 'no thanks' and we won't contact you again.",
+   "style_issues": []
+  }
  },
  {
   "id": "nhsd-ef12910a-fed2-c2b2-80b0-95130f86339e",
@@ -97783,8 +98119,8 @@
   "suburb": "Carrara",
   "state": "QLD",
   "postcode": "4211",
-  "phone": null,
-  "website": null,
+  "phone": "(07) 5594 4869",
+  "website": "https://www.carraramedical.com.au/",
   "email": null,
   "opening_hours": null,
   "operator": null,
@@ -97798,7 +98134,35 @@
   "sources": [
    "Healthdirect NHSD"
   ],
-  "completeness": 43
+  "completeness": 43,
+  "ai_discovery": {
+   "official_website": "https://www.carraramedical.com.au",
+   "phone": "(07) 5594 4869",
+   "address_matched": true,
+   "possibly_closed": false,
+   "confidence": "high"
+  },
+  "ai_profile": {
+   "error": "website unreachable"
+  },
+  "ai_lead": {
+   "fit_score": 75,
+   "tier": "A",
+   "reasons": [
+    "Located in Carrara, listed as \"Outer metro / regional\" indicating potential staffing challenges.",
+    "Website is present (https://www.carraramedical.com.au/), but no contact email, suggesting room for improved digital communication.",
+    "Operator field is null, indicating it is an independent practice where decisions are made locally."
+   ],
+   "likely_needs": [
+    "GP recruitment",
+    "Practice technology upgrades"
+   ],
+   "best_contact_channel": "phone",
+   "caution": "No email address provided; outreach may need to use phone or website contact form.",
+   "email_subject": "Supporting Carrara Medical Practice’s growth",
+   "email_body": "Hi Practice Manager,\n\nI was impressed by Carrara Medical Practice’s website – it clearly reflects your dedication to serving the Carrara community. Many regional practices tell us they face challenges finding qualified GPs and keeping up with digital tools like online booking and automated admin. Gokul Infocare partners with independent Queensland practices to streamline recruitment and upgrade practice technology, helping you attract staff and reduce admin time. Would you be open to a brief 15‑minute call next week to explore how we could support your goals?\n\nIf this isn't relevant, reply 'no thanks' and we won't contact you again.",
+   "style_issues": []
+  }
  },
  {
   "id": "nhsd-4a47d03d-a518-aebf-d18c-5ddf25e8a132",
@@ -98937,9 +99301,9 @@
   "suburb": "Clear Island Waters",
   "state": "QLD",
   "postcode": "4226",
-  "phone": null,
-  "website": null,
-  "email": null,
+  "phone": "(07) 5575 1822",
+  "website": "http://www.ciwhp.com.au/",
+  "email": "reception@ciwhp.com.au",
   "opening_hours": null,
   "operator": null,
   "wheelchair": null,
@@ -98952,7 +99316,69 @@
   "sources": [
    "Healthdirect NHSD"
   ],
-  "completeness": 43
+  "completeness": 86,
+  "ai_discovery": {
+   "official_website": "http://www.ciwhp.com.au/",
+   "phone": "07 5575 1822",
+   "address_matched": true,
+   "possibly_closed": false,
+   "confidence": "high"
+  },
+  "ai_profile": {
+   "is_general_practice": true,
+   "practice_type": "Independent GP clinic",
+   "emails": [
+    "reception@ciwhp.com.au"
+   ],
+   "phones": [
+    "(07) 5575 1822"
+   ],
+   "address": "1/56 Santa Cruz Boulevard Clear Island Waters QLD 4226",
+   "practice_manager": null,
+   "services": [
+    "General practice",
+    "Skin cancer medicine",
+    "Acupuncture",
+    "Nutritional therapy",
+    "Cosmetic medical treatments",
+    "Flu vaccines",
+    "Telehealth appointments",
+    "Skin cancer checks",
+    "Sports medicine",
+    "Paediatrics"
+   ],
+   "billing": "Bulk billing",
+   "telehealth": true,
+   "online_booking_platform": null,
+   "num_doctors_listed": null,
+   "hiring_signals": [],
+   "languages": [
+    "English"
+   ],
+   "summary": "Clear Island Waters Health Precinct offers bulk‑billed general practice and allied health services in a family‑friendly setting with telehealth options.",
+   "evidence_quality": "high",
+   "pages_read": [
+    "http://www.ciwhp.com.au/"
+   ]
+  },
+  "ai_lead": {
+   "fit_score": 65,
+   "tier": "B",
+   "reasons": [
+    "Practice is classified as Outer metro / regional, indicating potential GP shortage in the area",
+    "No online booking platform is listed, suggesting opportunity to add digital booking functionality",
+    "Phone and email are publicly available, making direct outreach easy"
+   ],
+   "likely_needs": [
+    "online booking integration",
+    "clinical staff recruitment"
+   ],
+   "best_contact_channel": "email",
+   "caution": "Practice manager name not provided.",
+   "email_subject": "Supporting Clear Island Waters Health Precinct's growth",
+   "email_body": "Hi Practice Manager,\n\nI noticed Clear Island Waters Health Precinct provides bulk‑billed general practice alongside a range of allied health services, creating a convenient family‑friendly hub for the community. As you continue to support patients locally, many practices find value in streamlining appointment bookings and attracting additional clinical staff to meet growing demand. Gokul Infocare specialises in modernising practice websites, integrating online booking, and sourcing qualified GPs and practice nurses for independent clinics. Would you be open to a brief 15‑minute call next week to explore how we might help you enhance your digital presence and recruitment pipeline?\n\nIf this isn't relevant, reply 'no thanks' and we won't contact you again.",
+   "style_issues": []
+  }
  },
  {
   "id": "nhsd-eb1143ca-269b-a200-1b51-a8ac5f85f27c",
@@ -113721,8 +114147,8 @@
   "suburb": "Mermaid Waters",
   "state": "QLD",
   "postcode": "4218",
-  "phone": null,
-  "website": null,
+  "phone": "(07) 5572 6888",
+  "website": "https://www.mermaidjunction.net/",
   "email": null,
   "opening_hours": null,
   "operator": null,
@@ -113736,7 +114162,83 @@
   "sources": [
    "Healthdirect NHSD"
   ],
-  "completeness": 43
+  "completeness": 71,
+  "ai_discovery": {
+   "official_website": "https://www.mermaidjunction.net/",
+   "phone": "07 5572 6888",
+   "address_matched": true,
+   "possibly_closed": false,
+   "confidence": "high"
+  },
+  "ai_profile": {
+   "is_general_practice": true,
+   "practice_type": "Independent GP clinic",
+   "emails": [],
+   "phones": [
+    "(07) 5572 6888"
+   ],
+   "address": "Q Super Centre Shop 4d 14 Allandale Entrance, Mermaid Waters, QLD 4218",
+   "practice_manager": "Mandy",
+   "services": [
+    "General practice",
+    "Skin cancer medicine",
+    "Paediatrics",
+    "Diabetes management",
+    "Family planning",
+    "Women’s health",
+    "Implanon insertion",
+    "Minor surgical procedures",
+    "Preventive medicine",
+    "Chronic disease management",
+    "Sports medicine",
+    "Mental health",
+    "Geriatric medicine",
+    "Musculoskeletal medicine",
+    "Pharmacy",
+    "Pathology",
+    "Radiology"
+   ],
+   "billing": "Bulk billing",
+   "telehealth": true,
+   "online_booking_platform": null,
+   "num_doctors_listed": 10,
+   "hiring_signals": [],
+   "languages": [
+    "English",
+    "Mandarin",
+    "Cantonese",
+    "Russian",
+    "French"
+   ],
+   "summary": "Mermaid Junction Medical Centre is a 29‑year‑old independent GP clinic in Mermaid Waters offering bulk‑billing general practice, skin cancer and other specialty services, with telehealth phone consults and a team of 10 doctors.",
+   "evidence_quality": "high",
+   "pages_read": [
+    "https://www.mermaidjunction.net/",
+    "https://www.mermaidjunction.net/aboutus",
+    "https://www.mermaidjunction.net/bookings",
+    "https://www.mermaidjunction.net/ourteam"
+   ]
+  },
+  "ai_lead": {
+   "fit_score": 73,
+   "tier": "A",
+   "reasons": [
+    "No online booking platform listed, indicating opportunity for digital booking integration.",
+    "Located in Outer metro/regional Mermaid Waters, where GP shortages are common.",
+    "Practice manager Mandy is named and a verified phone number is provided, enabling direct contact."
+   ],
+   "likely_needs": [
+    "Online booking integration",
+    "Automation of routine admin tasks",
+    "Recruitment of GPs or practice nurses",
+    "Website modernization"
+   ],
+   "best_contact_channel": "phone",
+   "caution": "No direct email address listed; outreach will need to use phone or website contact form.",
+   "email_subject": "Supporting Mermaid Junction’s digital and staffing goals",
+   "email_body": "Hi Mandy,\n\nI was impressed by how Mermaid Junction Medical Centre provides such a broad suite of services – from skin cancer treatments to paediatric care – for the Mermaid Waters community. Many independent clinics like yours find that adding an integrated online booking system and automating routine admin tasks not only eases staff workload but also improves patient satisfaction. We also support practices that are looking to attract additional GPs or practice nurses, especially in areas where recruitment can be challenging. Would you be open to a brief 15‑minute call next week to explore how we might help streamline your operations and strengthen your team?\n\nIf this isn't relevant, reply 'no thanks' and we won't contact you again.",
+   "style_issues": []
+  }
  },
  {
   "id": "nhsd-168f7ac4-609e-734a-76e6-98b809362a38",
@@ -113747,8 +114249,8 @@
   "suburb": "Merrimac",
   "state": "QLD",
   "postcode": "4226",
-  "phone": null,
-  "website": null,
+  "phone": "(07) 5525 1222",
+  "website": "https://www.merrimacmedicalcentre.com.au/",
   "email": null,
   "opening_hours": null,
   "operator": null,
@@ -113762,7 +114264,53 @@
   "sources": [
    "Healthdirect NHSD"
   ],
-  "completeness": 43
+  "completeness": 71,
+  "ai_discovery": {
+   "official_website": "https://www.merrimacmedicalcentre.com.au",
+   "phone": "(07) 5525 1222",
+   "address_matched": true,
+   "possibly_closed": false,
+   "confidence": "high"
+  },
+  "ai_profile": {
+   "is_general_practice": false,
+   "practice_type": "Unknown",
+   "emails": [],
+   "phones": [],
+   "address": null,
+   "practice_manager": null,
+   "services": [],
+   "billing": "Unknown",
+   "telehealth": null,
+   "online_booking_platform": null,
+   "num_doctors_listed": null,
+   "hiring_signals": [],
+   "languages": [],
+   "summary": "The site appears to be a placeholder or incomplete, providing only the address and phone number.",
+   "evidence_quality": "low",
+   "pages_read": [
+    "https://www.merrimacmedicalcentre.com.au/"
+   ]
+  },
+  "ai_lead": {
+   "fit_score": 74,
+   "tier": "A",
+   "reasons": [
+    "Located in Merrimac, an outer metro/regional area where GP shortages are common.",
+    "Website appears placeholder with only address and phone, indicating limited digital presence.",
+    "No practice manager listed; contact likely through phone or website form."
+   ],
+   "likely_needs": [
+    "Recruitment of GP or practice nurses",
+    "Upgrade to a modern website with online booking",
+    "Automation of routine admin tasks"
+   ],
+   "best_contact_channel": "phone",
+   "caution": "No hiring signals or practice manager listed; recruitment need is uncertain.",
+   "email_subject": "Supporting Smartclinics Merrimac with staffing & tech",
+   "email_body": "Hi Practice Manager,\n\nI noticed Smartclinics Merrimac is conveniently located on Gooding Drive, serving the Merrimac community. As you continue to provide quality care, many practices in similar areas find value in strengthening their team and streamlining admin tasks with modern website features and online booking. Gokul Infocare specialises in recruiting GPs, registrars and practice nurses for regional clinics, and we can also build a robust, mobile‑friendly website that integrates booking and automates routine work. Would you be open to a brief 15‑minute call to explore how we might support your practice?\n\nIf this isn't relevant, reply 'no thanks' and we won't contact you again.",
+   "style_issues": []
+  }
  },
  {
   "id": "nhsd-17ca55ab-ece9-55f3-8014-378ed103ed37",
@@ -121895,8 +122443,8 @@
   "suburb": "Robina",
   "state": "QLD",
   "postcode": "4226",
-  "phone": null,
-  "website": null,
+  "phone": "(07) 5616 8073",
+  "website": "https://www.imqveteranclinic.com.au/",
   "email": null,
   "opening_hours": null,
   "operator": null,
@@ -121910,7 +122458,67 @@
   "sources": [
    "Healthdirect NHSD"
   ],
-  "completeness": 43
+  "completeness": 71,
+  "ai_discovery": {
+   "official_website": "https://www.imqveteranclinic.com.au",
+   "phone": "(07) 5616 8073",
+   "address_matched": true,
+   "possibly_closed": false,
+   "confidence": "high"
+  },
+  "ai_profile": {
+   "is_general_practice": true,
+   "practice_type": "Independent GP clinic",
+   "emails": [],
+   "phones": [
+    "(07) 5616 8073"
+   ],
+   "address": "Sentinel House, 43 Commerce Dr, Robina QLD 4226",
+   "practice_manager": "Gabi Cameron",
+   "services": [
+    "DVA claims & reports",
+    "Permanent impairment assessments",
+    "GP & medical care",
+    "Mental health support",
+    "Veteran‑trained advocacy",
+    "Care plans",
+    "Alternative medicine",
+    "Supplementation"
+   ],
+   "billing": "Private billing",
+   "telehealth": null,
+   "online_booking_platform": null,
+   "num_doctors_listed": 4,
+   "hiring_signals": [],
+   "languages": [],
+   "summary": "IMQ Veteran Clinic provides GP and specialist care for veterans in Robina, offering DVA claim support and private‑fee medical services.",
+   "evidence_quality": "high",
+   "pages_read": [
+    "https://www.imqveteranclinic.com.au/",
+    "https://www.imqveteranclinic.com.au/about/",
+    "https://www.imqveteranclinic.com.au/contact/",
+    "https://www.imqveteranclinic.com.au/clear-upfront-fees-and-you-keep-your-entire-payout/"
+   ]
+  },
+  "ai_lead": {
+   "fit_score": 80,
+   "tier": "A",
+   "reasons": [
+    "Located in Robina and classified as outer metro/regional, indicating potential GP shortage",
+    "No online booking platform listed, suggesting opportunity for digital upgrade",
+    "Independent clinic with a named practice manager (Gabi Cameron) and verified phone contact"
+   ],
+   "likely_needs": [
+    "GP and clinical staff recruitment",
+    "Online booking integration",
+    "Website modernization"
+   ],
+   "best_contact_channel": "phone",
+   "caution": "No email address provided and no current hiring signals were found on the site.",
+   "email_subject": "Supporting IMQ Veteran Clinic’s growth in Robina",
+   "email_body": "Hi Gabi,\n\nI’m impressed by the comprehensive veteran‑focused services IMQ Veteran Clinic offers in Robina, especially the DVA claim support and mental health care. As an independent clinic serving a growing community, having robust online booking and streamlined admin can free up time for patient care. Gokul Infocare specialises in helping practices like yours attract qualified GPs and practice nurses, and we build modern websites with integrated booking and automation tools. Would you be open to a brief 15‑minute call to explore how we might support your recruitment and digital needs?\n\nIf this isn't relevant, reply 'no thanks' and we won't contact you again.",
+   "style_issues": []
+  }
  },
  {
   "id": "nhsd-bc79d231-71c6-9c48-026d-e0fd09972658",
@@ -121947,9 +122555,9 @@
   "suburb": "Robina",
   "state": "QLD",
   "postcode": "4226",
-  "phone": null,
-  "website": null,
-  "email": null,
+  "phone": "(07) 5580 8070",
+  "website": "https://r7dd.com/",
+  "email": "reception@r7dd.com",
   "opening_hours": null,
   "operator": null,
   "wheelchair": null,
@@ -121962,7 +122570,84 @@
   "sources": [
    "Healthdirect NHSD"
   ],
-  "completeness": 43
+  "completeness": 86,
+  "ai_profile": {
+   "is_general_practice": true,
+   "practice_type": "Independent GP clinic",
+   "emails": [
+    "reception@r7dd.com"
+   ],
+   "phones": [
+    "(07) 5580 8070"
+   ],
+   "address": "2 Waterfront Place, Robina QLD 4226 (Corner of Robina Town Centre Drive and Laver Drive)",
+   "practice_manager": null,
+   "services": [
+    "General Practice",
+    "Skin Cancer Check",
+    "Acupuncture",
+    "Dry Needling",
+    "Workers Compensation",
+    "Mental Health Care Plans",
+    "Immunisation and Vaccinations",
+    "Indigenous Health",
+    "Antenatal Care",
+    "Pap Smears",
+    "ECG and 24‑hour BP/Holter Monitoring",
+    "Family Planning",
+    "Iron Infusion and Nutrition Advice",
+    "Minor Surgery",
+    "IUD & Hormone Implant Insertions & Removals",
+    "Weight Loss",
+    "Menopause Management",
+    "Stress, Depression, Adrenal Fatigue Support",
+    "IVF and Fertility Support",
+    "Pain Management (Various Musculoskeletal Conditions)",
+    "Tinnitus, Insomnia, Carpal Tunnel"
+   ],
+   "billing": "Mixed billing",
+   "telehealth": null,
+   "online_booking_platform": null,
+   "num_doctors_listed": 5,
+   "hiring_signals": [],
+   "languages": [
+    "English",
+    "Chinese",
+    "Telugu",
+    "Tamil",
+    "Hindi",
+    "Indonesian",
+    "Punjabi"
+   ],
+   "summary": "Robina 7 Day Doctors is a bulk‑billing GP clinic offering comprehensive general practice, skin cancer, acupuncture and dry‑needling services, open seven days a week.",
+   "evidence_quality": "high",
+   "pages_read": [
+    "https://r7dd.com/",
+    "https://r7dd.com/our-team/",
+    "https://r7dd.com/billing/",
+    "https://r7dd.com/contact/"
+   ]
+  },
+  "ai_lead": {
+   "fit_score": 73,
+   "tier": "A",
+   "reasons": [
+    "Located in Robina, an outer‑metro suburb serving the community seven days a week",
+    "No online booking platform listed, indicating opportunity for digital automation",
+    "Independent practice with no operator, allowing local decision‑making"
+   ],
+   "likely_needs": [
+    "Online booking integration",
+    "Modern mobile‑friendly website",
+    "Automation of routine admin tasks",
+    "GP or nurse recruitment support"
+   ],
+   "best_contact_channel": "email",
+   "caution": null,
+   "email_subject": "Online booking & website upgrade for Robina 7 Day Doctors",
+   "email_body": "Hi Practice Manager,\n\nI noticed your clinic provides a broad suite of services—including general practice, skin cancer checks, and acupuncture—and operates seven days a week for the Robina community. Many practices like yours find that a modern, mobile‑friendly website with integrated online booking can free up staff time and improve patient satisfaction. Gokul Infocare specialises in building such sites and automating routine admin tasks, plus we can support any upcoming GP or nurse recruitment you may have. Would you be open to a brief 15‑minute call next week to discuss how we could help?\n\nIf this isn't relevant, reply 'no thanks' and we won't contact you again.",
+   "style_issues": []
+  }
  },
  {
   "id": "nhsd-2406b731-e0e5-b4a5-32db-c68dcea903ad",
@@ -122051,8 +122736,8 @@
   "suburb": "Robina",
   "state": "QLD",
   "postcode": "4226",
-  "phone": null,
-  "website": null,
+  "phone": "(07) 5578 8848",
+  "website": "https://www.robinamedicalcentre.com.au/",
   "email": null,
   "opening_hours": null,
   "operator": null,
@@ -122066,7 +122751,53 @@
   "sources": [
    "Healthdirect NHSD"
   ],
-  "completeness": 43
+  "completeness": 71,
+  "ai_discovery": {
+   "official_website": "https://www.robinamedicalcentre.com.au",
+   "phone": "+61-7-5578-8848",
+   "address_matched": true,
+   "possibly_closed": false,
+   "confidence": "high"
+  },
+  "ai_profile": {
+   "is_general_practice": false,
+   "practice_type": "Unknown",
+   "emails": [],
+   "phones": [],
+   "address": null,
+   "practice_manager": null,
+   "services": [],
+   "billing": "Unknown",
+   "telehealth": null,
+   "online_booking_platform": null,
+   "num_doctors_listed": null,
+   "hiring_signals": [],
+   "languages": [],
+   "summary": "Robina Medical Centre appears to be a GP clinic on the Gold Coast, but the website provides no detailed information.",
+   "evidence_quality": "low",
+   "pages_read": [
+    "https://www.robinamedicalcentre.com.au/"
+   ]
+  },
+  "ai_lead": {
+   "fit_score": 70,
+   "tier": "A",
+   "reasons": [
+    "Located in outer metro/regional Robina, indicating possible GP shortage.",
+    "No online booking platform listed on the website, suggesting a digital upgrade opportunity.",
+    "Phone number is available but practice manager contact details are missing, limiting direct outreach."
+   ],
+   "likely_needs": [
+    "online booking integration",
+    "website redesign",
+    "staff recruitment"
+   ],
+   "best_contact_channel": "phone",
+   "caution": "Practice manager name and email are not listed; hiring signals are absent.",
+   "email_subject": "Quick chat about supporting Robina Medical Centre",
+   "email_body": "Hi Practice Manager,\n\nI noticed Robina Medical Centre provides primary care to the Robina community on the Gold Coast. Many clinics in the area are looking to streamline admin work and attract additional staff, and Gokul Infocare specialises in modernising practice websites, adding online booking and supporting recruitment of GPs and nurses. I’d love to discuss how a quick 15‑minute call could uncover simple upgrades that free up your team’s time and help you fill any staffing gaps. We've helped several Gold Coast practices improve patient access and reduce admin load.\n\nIf this isn't relevant, reply 'no thanks' and we won't contact you again.",
+   "style_issues": []
+  }
  },
  {
   "id": "nhsd-cec70919-b808-8983-5fad-d18e25be4f26",
@@ -122103,9 +122834,9 @@
   "suburb": "Robina",
   "state": "QLD",
   "postcode": "4226",
-  "phone": null,
-  "website": null,
-  "email": null,
+  "phone": "(07) 5593 1266",
+  "website": "https://robinavillagemedical.com.au/",
+  "email": "reception@rvmc.net.au",
   "opening_hours": null,
   "operator": null,
   "wheelchair": null,
@@ -122118,7 +122849,70 @@
   "sources": [
    "Healthdirect NHSD"
   ],
-  "completeness": 43
+  "completeness": 86,
+  "ai_discovery": {
+   "official_website": "https://robinavillagemedical.com.au/",
+   "phone": "(07) 5593 1266",
+   "address_matched": true,
+   "possibly_closed": false,
+   "confidence": "high"
+  },
+  "ai_profile": {
+   "is_general_practice": true,
+   "practice_type": "General Practice",
+   "emails": [
+    "reception@rvmc.net.au"
+   ],
+   "phones": [
+    "(07) 5593 1266",
+    "(07) 5651 6667"
+   ],
+   "address": "201 Ron Penhaligon Way, Robina, QLD 4226",
+   "practice_manager": null,
+   "services": [
+    "Family health",
+    "Sexual health",
+    "Skin cancer screenings",
+    "Wound care",
+    "Investigative testing"
+   ],
+   "billing": "Mixed billing",
+   "telehealth": null,
+   "online_booking_platform": null,
+   "num_doctors_listed": 5,
+   "hiring_signals": [],
+   "languages": [
+    "English",
+    "Persian"
+   ],
+   "summary": "Robina Village Medical Centre in Robina offers mixed‑billing general practice services, including family, sexual, skin cancer, wound care and investigative testing.",
+   "evidence_quality": "high",
+   "pages_read": [
+    "https://robinavillagemedical.com.au/",
+    "https://robinavillagemedical.com.au/about-us",
+    "https://robinavillagemedical.com.au/contact-us",
+    "https://robinavillagemedical.com.au/practice-fees"
+   ]
+  },
+  "ai_lead": {
+   "fit_score": 75,
+   "tier": "A",
+   "reasons": [
+    "The practice lists multiple services (family health, skin cancer screenings) indicating a busy, community‑focused clinic in Robina.",
+    "No online booking platform is mentioned, suggesting an opportunity to streamline patient intake digitally.",
+    "Phone and email are publicly listed, making direct outreach easy."
+   ],
+   "likely_needs": [
+    "Online booking integration",
+    "Website modernisation",
+    "Digital marketing automation"
+   ],
+   "best_contact_channel": "email",
+   "caution": "Practice manager name is not provided; outreach should address the practice manager generally.",
+   "email_subject": "Quick chat about boosting your practice’s online booking",
+   "email_body": "Hi Practice Manager,\n\nI noticed Robina Village Medical Centre offers a great range of services, from family health to skin cancer screenings, serving the Robina community. Many practices I work with find that adding an integrated online booking system and a refreshed website not only eases admin work but also attracts new patients.\n\nWould you be open to a brief 15‑minute call to explore how we could help modernise your digital presence and support any upcoming staffing needs?\n\nIf this isn't relevant, reply 'no thanks' and we won't contact you again.",
+   "style_issues": []
+  }
  },
  {
   "id": "nhsd-7df11624-4fa9-4a27-cf50-a76bbf705dc4",

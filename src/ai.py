@@ -30,11 +30,21 @@ client = Groq(max_retries=2)
 
 def _complete(**kwargs):
     """chat.completions.create that waits out per-minute rate limits instead of failing.
-    The SDK's own backoff is a few seconds; a free-tier token window needs up to a minute."""
+    The SDK's own backoff is a few seconds; a free-tier token window needs up to a minute.
+    A per-day limit (TPD) won't reset for hours, so waiting is pointless: switch to the other
+    model, which has its own daily allowance."""
+    switched = False
     for attempt in range(8):
         try:
             return client.chat.completions.create(**kwargs)
         except RateLimitError as e:
+            if "per day" in str(e):
+                other = MODEL if kwargs["model"] != MODEL else READ_MODEL
+                if switched or other == kwargs["model"]:
+                    raise
+                print(f"  daily token limit hit on {kwargs['model']}; switching to {other}", flush=True)
+                kwargs["model"], switched = other, True
+                continue
             wait = float(e.response.headers.get("retry-after") or 0) or 15 * (attempt + 1)
             time.sleep(min(wait + 1, 90))
     return client.chat.completions.create(**kwargs)

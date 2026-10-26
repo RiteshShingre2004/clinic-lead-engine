@@ -1,4 +1,8 @@
-"""Step 2 - Clean, normalise, classify and de-duplicate the raw OpenStreetMap records.
+"""Step 2 - Clean, normalise, classify, merge and de-duplicate the raw records.
+
+The Healthdirect register (NHSD) is the backbone: one record per active practice. Each
+OpenStreetMap record is matched to a register practice by distance + name similarity and
+contributes the contact details the register lacks; unmatched OSM practices are kept.
 
 Output: data/clinics.json (the working dataset every later step reads and updates).
 """
@@ -6,6 +10,7 @@ Output: data/clinics.json (the working dataset every later step reads and update
 import json
 import math
 import re
+from difflib import SequenceMatcher
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -36,6 +41,21 @@ NON_GP = {
     "ultrasound": "Imaging", "foot": "Allied health", "podiatr": "Allied health", "psycholog": "Allied health",
     "chiropract": "Allied health", "osteopath": "Allied health", "optometr": "Allied health", "eye ": "Specialist",
 }
+# NHSD service types -> our categories. Aboriginal community-controlled health services
+# and walk-in centres employ GPs, so they count as general practice for lead purposes.
+NHSD_CATEGORY = {
+    "General practice service": "General practice",
+    "Aboriginal and Torres Strait Islander health service": "Aboriginal health service",
+    "Walk-in centre": "General practice",
+    "Medical deputising service": "General practice",
+    "General practice skin cancer service": "Skin cancer clinic",
+    "Maternal, child and family health service": "Community health",
+    "Nurse led clinic": "Community health",
+    "Nurse practitioner led clinic": "Community health",
+    "Community cancer service": "Community health",
+}
+GP_CATEGORIES = ("General practice", "Aboriginal health service", "Unclassified")
+
 GP_HINTS = re.compile(
     r"\b(general practice|gp|family (practice|medical|doctors?)|medical (centre|center|clinic|practice|group)|"
     r"doctors?|surgery|health (centre|hub|clinic)|medical)\b", re.I
@@ -146,6 +166,80 @@ def to_record(el: dict, state: str) -> dict | None:
     return rec
 
 
+def place(lat: float, lon: float) -> dict:
+    capital, km = min(((cap, haversine_km((lat, lon), xy)) for cap, xy in CAPITALS.items()), key=lambda t: t[1])
+    return {"nearest_capital": capital, "km_to_capital": round(km), "remoteness": remoteness(km)}
+
+
+def nhsd_record(r: dict) -> dict | None:
+    if not r.get("organisation_name") or r.get("latitude") is None:
+        return None
+    lat, lon = r["latitude"], r["longitude"]
+    postcode = str(r["postcode"]).zfill(4) if r.get("postcode") else None
+    suburb = (r.get("suburb") or "").title() or None
+    # "1575 Burwood Highway Tecoma Vic 3160 Australia" -> "1575 Burwood Highway"
+    street = re.sub(rf"\s*{re.escape(suburb or '')}\s+\w+\s+{postcode}\s+Australia$", "", r.get("address") or "", flags=re.I).strip() or None
+    rec = {
+        "id": f"nhsd-{r['nhsd_service_id']}",
+        "name": r["organisation_name"].strip(),
+        "category": NHSD_CATEGORY.get(r.get("nhsd_service_type"), "Unclassified"),
+        "service_type": r.get("nhsd_service_type"),
+        "street": street, "suburb": suburb, "state": r.get("state"), "postcode": postcode,
+        "phone": None, "website": None, "email": None, "opening_hours": None,
+        "operator": None, "wheelchair": None,
+        "lat": round(lat, 6), "lon": round(lon, 6), **place(lat, lon),
+        "source": "https://www.healthdirect.gov.au/australian-health-services",
+        "sources": ["Healthdirect NHSD"],
+    }
+    rec["completeness"] = completeness(rec)
+    return rec
+
+
+def name_similarity(a: str, b: str) -> float:
+    strip = lambda s: re.sub(r"\b(the|medical|centre|center|clinic|practice|general|family|health|gp|doctors?|surgery)\b|[^a-z0-9 ]", "", s.lower()).split()
+    ta, tb = " ".join(strip(a)), " ".join(strip(b))
+    if not ta or not tb:
+        return SequenceMatcher(None, a.lower(), b.lower()).ratio()
+    return SequenceMatcher(None, ta, tb).ratio()
+
+
+def attach_osm(register: list[dict], osm: list[dict]) -> list[dict]:
+    """Match OSM practices onto register practices; return the OSM records left unmatched."""
+    grid: dict[tuple, list[dict]] = {}
+    for r in register:
+        grid.setdefault((round(r["lat"], 2), round(r["lon"], 2)), []).append(r)
+    leftovers = []
+    for o in osm:
+        # A pathology collection centre or imaging rooms inside a medical centre are a separate
+        # business with its own phone number - never let them donate contacts to the GP record.
+        if o["category"] not in (*GP_CATEGORIES, "Skin cancer clinic"):
+            leftovers.append(o)
+            continue
+        best, best_score = None, 0.0
+        gy, gx = round(o["lat"], 2), round(o["lon"], 2)
+        for dy in (-0.01, 0, 0.01):
+            for dx in (-0.01, 0, 0.01):
+                for r in grid.get((round(gy + dy, 2), round(gx + dx, 2)), []):
+                    km = haversine_km((o["lat"], o["lon"]), (r["lat"], r["lon"]))
+                    sim = name_similarity(o["name"], r["name"])
+                    # Close + similar name, or the same building with a fairly similar name.
+                    if (km <= 0.25 and sim >= 0.6) or (km <= 0.03 and sim >= 0.45):
+                        score = sim - km
+                        if score > best_score:
+                            best, best_score = r, score
+        if best is None:
+            leftovers.append(o)
+            continue
+        for k in ("phone", "website", "email", "opening_hours", "operator", "wheelchair", "street"):
+            if not best.get(k) and o.get(k):
+                best[k] = o[k]
+        best.setdefault("osm_ids", []).append(o["id"])
+        if "OpenStreetMap" not in best["sources"]:
+            best["sources"].append("OpenStreetMap")
+        best["completeness"] = completeness(best)
+    return leftovers
+
+
 def merge(a: dict, b: dict) -> dict:
     """Keep the richer record, filling its gaps from the other."""
     keep, other = (a, b) if a["completeness"] >= b["completeness"] else (b, a)
@@ -182,18 +276,28 @@ def main() -> None:
         if rec["phone"]:
             by_phone[rec["phone"]] = rec
 
+    for c in clinics:
+        c["sources"] = ["OpenStreetMap"]
+    register = [r for r in map(nhsd_record, json.loads((RAW_DIR / "nhsd_gp.json").read_text())) if r]
+    osm_only = attach_osm(register, clinics)
+    matched = len(clinics) - len(osm_only)
+    clinics = register + osm_only
+    print(f"NHSD register: {len(register)} | OSM matched onto register: {matched} | OSM-only kept: {len(osm_only)}")
+
     # Preserve AI enrichment from earlier runs so re-cleaning never throws paid work away.
     if OUT.exists():
         previous = {c["id"]: c for c in json.loads(OUT.read_text())}
         for c in clinics:
-            for k in ("ai_profile", "ai_lead"):
-                if k in previous.get(c["id"], {}):
-                    c[k] = previous[c["id"]][k]
+            for old_id in [c["id"], *c.get("osm_ids", [])]:  # AI work done on OSM ids survives the merge
+                for k in ("ai_profile", "ai_lead"):
+                    if k in previous.get(old_id, {}) and k not in c:
+                        c[k] = previous[old_id][k]
 
-    clinics.sort(key=lambda c: (c["state"], c["suburb"] or "", c["name"]))
+
+    clinics.sort(key=lambda c: (c["state"] or "", c["suburb"] or "", c["name"]))
     OUT.write_text(json.dumps(clinics, indent=1, ensure_ascii=False))
-    gps = [c for c in clinics if c["category"] == "General practice"]
-    print(f"raw elements: {raw_total} -> clean unique practices: {len(clinics)} ({len(gps)} general practice)")
+    gps = [c for c in clinics if c["category"] in ("General practice", "Aboriginal health service")]
+    print(f"OSM raw elements: {raw_total} -> unique practices: {len(clinics)} ({len(gps)} GP / Aboriginal health)")
     for f in ("phone", "website", "email"):
         print(f"  with {f}: {sum(bool(c[f]) for c in clinics)}")
 

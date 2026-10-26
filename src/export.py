@@ -8,7 +8,7 @@ from clean import OUT, ROOT
 DASHBOARD_DATA = ROOT / "dashboard" / "clinics.json"
 
 DIRECTORY_COLS = ["name", "category", "street", "suburb", "state", "postcode", "phone", "email", "website",
-                  "opening_hours", "remoteness", "km_to_capital", "completeness", "lat", "lon", "source"]
+                  "opening_hours", "service_type", "remoteness", "km_to_capital", "nearest_capital", "completeness", "lat", "lon", "sources"]
 
 
 def flat(c: dict) -> dict:
@@ -16,6 +16,7 @@ def flat(c: dict) -> dict:
     lead = c.get("ai_lead") or {}
     return {
         **{k: c.get(k) for k in DIRECTORY_COLS},
+        "sources": " + ".join(c.get("sources") or []),
         "billing": p.get("billing"),
         "online_booking": p.get("online_booking_platform"),
         "doctors_listed": p.get("num_doctors_listed"),
@@ -35,7 +36,7 @@ def main() -> None:
     with open(ROOT / "data" / "clinics_directory.csv", "w", newline="", encoding="utf-8") as f:
         w = csv.DictWriter(f, DIRECTORY_COLS)
         w.writeheader()
-        w.writerows({k: c.get(k) for k in DIRECTORY_COLS} for c in clinics)
+        w.writerows({k: " + ".join(c[k]) if k == "sources" else c.get(k) for k in DIRECTORY_COLS} for c in clinics)
 
     leads = sorted((flat(c) for c in clinics if c.get("ai_lead")), key=lambda r: -r["fit_score"])
     if leads:
@@ -46,7 +47,7 @@ def main() -> None:
 
     slim = []
     for c in clinics:
-        row = {k: c.get(k) for k in DIRECTORY_COLS if k != "source"}
+        row = {k: c[k] for k in DIRECTORY_COLS if c.get(k) not in (None, "", [])}  # blanks dropped: ~40% smaller
         row["id"] = c["id"]
         for k in ("ai_profile", "ai_lead"):
             if c.get(k) and "error" not in c[k]:

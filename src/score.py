@@ -10,7 +10,7 @@ import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import ai
-from clean import OUT
+from clean import GP_CATEGORIES, OUT
 
 lock = threading.Lock()
 # Raw distances are deliberately left out: given "km_to_capital" the model kept quoting
@@ -77,7 +77,7 @@ def main() -> None:
     system = ai.prompt("score_lead", offer=(ai.ROOT / "offer.md").read_text().strip())
     clinics = json.loads(OUT.read_text())
     todo = [c for c in clinics
-            if c["category"] in ("General practice", "Unclassified")
+            if c["category"] in GP_CATEGORIES
             and (args.redo or "ai_lead" not in c)
             and (not args.state or c["state"] == args.state.upper())]
     todo.sort(key=lambda c: ("ai_profile" not in c, -c["completeness"]))  # enriched records first

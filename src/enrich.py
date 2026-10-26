@@ -12,7 +12,7 @@ import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import ai
-from clean import OUT, completeness, normalise_phone, normalise_url
+from clean import GP_CATEGORIES, OUT, completeness, normalise_phone, normalise_url
 from webtext import read_site
 
 lock = threading.Lock()
@@ -85,7 +85,7 @@ def main() -> None:
 
     clinics = json.loads(OUT.read_text())
     todo = [c for c in clinics
-            if c["category"] in ("General practice", "Unclassified")
+            if c["category"] in GP_CATEGORIES
             and (args.redo or "ai_profile" not in c)
             and (not args.state or c["state"] == args.state.upper())
             and (c["website"] or args.discover)]

@@ -118,9 +118,9 @@ a { color: var(--accent); }
   <header>
     <div>
       <h1>Clinic Lead Engine</h1>
-      <p class="lede">Every publicly listed medical practice in Australia, cleaned and de-duplicated, then enriched by AI (Groq) from each clinic's own website and scored as a lead for GP recruitment and practice-technology services.</p>
+      <p class="lede">Every active general practice on the national Healthdirect register, merged with OpenStreetMap contact data, then enriched by AI (Groq) from each clinic's own website and scored as a lead for GP recruitment and practice-technology services.</p>
     </div>
-    <div class="src">Data: <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a> (ODbL) · clinic websites<br><span id="built"></span></div>
+    <div class="src">Data: <a href="https://www.healthdirect.gov.au/australian-health-services" target="_blank" rel="noopener">Healthdirect National Health Services Directory</a> via <a href="https://services.ga.gov.au/gis/rest/services/National_HealthDirect_Health_Facilities/MapServer" target="_blank" rel="noopener">Geoscience Australia</a> (CC BY 4.0)<br><a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">© OpenStreetMap contributors</a> (ODbL) · clinic websites</div>
   </header>
 
   <section class="stats" id="stats" aria-label="Dataset summary"></section>
@@ -178,14 +178,15 @@ function flash(btn, t) { const o = btn.textContent; btn.textContent = t; setTime
 
 function stats() {
   const n = ALL.length, pct = (k) => Math.round((100 * ALL.filter((c) => c[k]).length) / n);
-  const gp = ALL.filter((c) => c.category === "General practice").length;
+  const gp = ALL.filter((c) => ["General practice", "Aboriginal health service"].includes(c.category)).length;
+  const count = (k) => ALL.filter((c) => c[k]).length.toLocaleString();
   const enriched = ALL.filter((c) => c.ai_profile).length, scored = ALL.filter((c) => c.ai_lead);
   const a = scored.filter((c) => c.ai_lead.tier === "A").length;
   const tile = (b, s, p) => `<div class="stat"><b>${b}</b><span>${s}</span>${p != null ? `<div class="bar"><i style="width:${p}%"></i></div>` : ""}</div>`;
   $("#stats").innerHTML = [
-    tile(n.toLocaleString(), "unique practices"), tile(gp.toLocaleString(), "general practices"),
-    tile(pct("phone") + "%", "with phone", pct("phone")), tile(pct("website") + "%", "with website", pct("website")),
-    tile(pct("email") + "%", "with email", pct("email")),
+    tile(n.toLocaleString(), "practices on the map"), tile(gp.toLocaleString(), "GP & Aboriginal health services"),
+    tile(count("phone"), "with phone", pct("phone")), tile(count("website"), "with website", pct("website")),
+    tile(count("email"), "with email", pct("email")),
     tile(enriched, "read by AI from their website"), tile(`${a}<small style="font-size:14px;color:var(--muted)"> / ${scored.length}</small>`, "Tier A leads / AI-scored"),
   ].join("");
 }
@@ -236,6 +237,7 @@ function dossier(c) {
     <div><h3>Contact</h3><dl class="kv">
       ${row("Phone", esc(c.phone), c.phone)}${row("Email", esc(c.email), c.email)}${row("Website", site)}
       ${row("Address", esc(addr))}${row("Hours", esc(c.opening_hours))}
+      ${row("Listed in", esc((c.sources || []).join(" + ")))}
       ${p?.practice_manager ? row("Manager", esc(p.practice_manager)) : ""}
     </dl></div>`;
   if (l) {

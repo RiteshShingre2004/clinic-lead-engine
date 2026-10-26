@@ -6,34 +6,35 @@ An AI-powered pipeline that turns open public data into a verified, scored list 
 
 ## The problem
 
-Companies that sell to GP practices (recruiters, health-tech vendors, billing services) start from incomplete lead lists. Open directory data on Australian clinics is patchy: across the 2,418 Australian practices in OpenStreetMap, only 31% list a phone number, 31% a website and 6% an email. A sales researcher then spends 5–10 minutes per clinic checking the website, finding contacts, judging fit and writing a first email.
+Companies that sell to GP practices (recruiters, health-tech vendors, billing services) start from incomplete lead lists. Open data on Australian clinics is split between two kinds of source. The government's Healthdirect register lists every active practice (8,081) but has no phone numbers, websites or emails. OpenStreetMap has some contact details but covers fewer than a third of practices. A sales researcher then spends 5–10 minutes per clinic checking the website, finding contacts, judging fit and writing a first email.
 
 This project automates that work end to end, and every AI output is grounded in a cited source.
 
 ## How it works
 
 ```
-OpenStreetMap (Overpass API)        clinic websites                 offer.md
+Healthdirect register (NHSD)
+ + OpenStreetMap (Overpass API)      clinic websites                 offer.md
           │                               │                            │
  1. collect.py  ──►  2. clean.py  ──►  3. enrich.py (Groq)    ──►  4. score.py (Groq)    ──►  5. export.py
-   8 state queries    normalise phones    robots.txt-aware reader      0-100 fit score, tier,      CSVs +
-   mirror rotation    AU format, dedupe   + structured extraction      reasons, outreach draft     dashboard
-   + retry/backoff    classify GP vs      + optional web-search
-                      specialist,         discovery for clinics
+   NHSD: 8,081 GPs    merge sources by      robots.txt-aware reader      0-100 fit score, tier,      CSVs +
+   OSM: 8 state       location + name,    + structured extraction      reasons, outreach draft     dashboard
+   queries, mirror    normalise phones,   + optional web-search
+   rotation, backoff  classify, dedupe,   discovery for clinics
                       remoteness signal   with no known website
 ```
 
 | Step | What it does | AI? |
 |---|---|---|
-| **1. Collect** | Queries OpenStreetMap for every `amenity=doctors` / `healthcare=doctor` record, one state at a time, rotating across public mirrors with backoff. | – |
-| **2. Clean** | Normalises phone numbers to Australian national format, normalises URLs, classifies each record (GP vs specialist, pathology, imaging, etc.), removes duplicates by fuzzy name+postcode and then by shared phone number, and computes a completeness score and a remoteness signal (distance to the nearest capital, a proxy for GP-shortage areas). | – |
+| **1. Collect** | Downloads the **Healthdirect National Health Services Directory** general-practice layer published by Geoscience Australia: all 8,081 active practices, paged 2,000 at a time. It also queries OpenStreetMap for every `amenity=doctors` / `healthcare=doctor` record, one state at a time, rotating across public mirrors with backoff. | – |
+| **2. Clean** | Uses the government register as the backbone and matches each OpenStreetMap record onto it by distance (within 250 m) and name similarity, so the map can add the phone, website and opening hours the register lacks. Pathology, imaging and allied-health map entries are never merged into a GP record. Also normalises phone numbers to Australian national format, normalises URLs, classifies each record (GP vs specialist, pathology, imaging, etc.), removes duplicates by fuzzy name+postcode and then by shared phone number, and computes a completeness score and a remoteness signal (distance to the nearest capital, a proxy for GP-shortage areas). | – |
 | **3. Enrich** | Reads each clinic's own website (respecting robots.txt; homepage plus Contact, Team and Careers pages). An LLM on Groq (GPT-OSS 20B) extracts a strict-schema profile: emails, phones, practice manager, billing model, booking platform, number of doctors, hiring signals, services and languages, using evidence only. Optionally, `--discover` uses GPT-OSS with Groq's built-in `browser_search` tool to find the official site for clinics that have none on the map. | Groq |
 | **4. Score** | The LLM scores each practice 0–100 against a written rubric (need, fit, reachability) for the offer in `offer.md`. It returns a tier with evidence-based reasons and drafts a first-touch email that complies with the Spam Act. | Groq |
 | **5. Export** | Writes `data/clinics_directory.csv`, `data/leads_scored.csv` and the dashboard data. | – |
 
 ### Design decisions
 
-- **Open, licensed source data.** OpenStreetMap is ODbL-licensed, so it can be reused legally. That is safer than scraping directories whose terms forbid it.
+- **Open, licensed source data.** The Healthdirect register (via Geoscience Australia) is CC BY 4.0 and OpenStreetMap is ODbL, so both can be reused legally with credit. That is safer than scraping directories whose terms forbid it.
 - **Evidence-only extraction.** The extraction prompt forbids guessing, and the output is constrained with JSON-schema output and then validated by Pydantic, so every run returns the same shape. Invalid JSON is fed back to the model once with the validation error so it can correct itself. Website data only fills gaps and never overwrites the map record.
 - **Retargetable.** The whole pipeline sells whatever `offer.md` describes. The default is GP recruitment plus practice technology, based on Gokul Infocare's publicly listed services.
 - **Compliance by design.** Outreach is drafted for a human to review, never sent automatically. Each draft carries an opt-out line consistent with the Australian Spam Act 2003, and the crawler respects robots.txt and identifies itself.
@@ -71,6 +72,7 @@ PROMPTS.md  prompt documentation for the assessment
 
 ## Limitations
 
-- OpenStreetMap coverage is good in cities and thinner in remote areas. Practices with no map entry are not found.
+- The register snapshot is from March 2025, so practices that opened after that appear only if they are in OpenStreetMap.
+- Most register practices have no published contact details until the AI enrichment step runs on them. Groq's free tier limits how many clinics that can cover per hour.
 - The remoteness signal is distance to the nearest capital, not the official Modified Monash Model classification.
 - Lead scores are a ranking aid for a human researcher, not a verdict.
